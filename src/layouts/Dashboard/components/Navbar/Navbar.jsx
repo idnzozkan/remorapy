@@ -7,7 +7,7 @@ import { AppBar, Toolbar } from '@material-ui/core'
 const useStyles = makeStyles((theme) => ({
     root: {
         boxShadow: 'none',
-        backgroundColor: palette.primary.dark,
+        backgroundColor: palette.primary.main,
     },
     flexGrow: {
         flexGrow: 1,
