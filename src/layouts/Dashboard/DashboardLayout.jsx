@@ -1,5 +1,6 @@
 import React from 'react'
 import clsx from 'clsx'
+import palette from '../../theme/palette'
 import { makeStyles } from '@material-ui/core'
 import { Navbar, Sidebar } from './components'
 
@@ -17,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
     content: {
         height: '100%',
         minHeight: 'calc(100vh - 64px)',
+        backgroundColor: palette.neutral
     },
 }))
 
