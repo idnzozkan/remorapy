@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
         padding: '10px 15px',
         textDecoration: 'none',
         userSelect: 'none',
-        color: palette.text.link,
+        color: palette.white,
         borderRadius: '5px',
         transition: 'background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
         '&:hover': {
