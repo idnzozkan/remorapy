@@ -7,7 +7,7 @@ import { AppBar, Toolbar } from '@material-ui/core'
 const useStyles = makeStyles((theme) => ({
     root: {
         boxShadow: 'none',
-        backgroundColor: palette.primary.dark,
+        backgroundColor: palette.primary.main,
     },
     flexGrow: {
         flexGrow: 1,
@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
         padding: '10px 15px',
         textDecoration: 'none',
         userSelect: 'none',
-        color: palette.text.link,
+        color: palette.white,
         borderRadius: '5px',
         transition: 'background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
         '&:hover': {
