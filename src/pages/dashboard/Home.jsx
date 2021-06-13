@@ -1,7 +1,8 @@
-import { Grid, makeStyles, Paper } from '@material-ui/core'
+import { Grid, makeStyles, Paper, Typography } from '@material-ui/core'
 import React from 'react'
 
 import WelcomeCard from '../../components/WelcomeCard'
+import UpcomingAppointments from '../../components/UpcomingAppointments'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -9,6 +10,9 @@ const useStyles = makeStyles((theme) => ({
     },
     paddingTop: {
         paddingTop: theme.spacing(4),
+    },
+    sectionTitle: {
+        margin: '1rem 0'
     }
 }))
 
@@ -16,12 +20,13 @@ const data = {
     patient: {
         name: 'John Doe',
         userType: 'patient',
+        avatar: 'https://i.imgur.com/KSwasW4.jpg',
         appointments: [
             {
                 id: 1,
                 date: 'June 12 2021',
-                time: '9:30 AM',
-                therapist: { name: 'Mikasa Ackerman' },
+                time: '09:30 AM',
+                therapist: { name: 'Mikasa Ackerman', avatar: 'https://i.imgur.com/tId9zxe.jpg' },
                 patient: { name: 'John Doe' },
                 duration: 30,
                 status: 'pending'
@@ -29,8 +34,8 @@ const data = {
             {
                 id: 2,
                 date: 'June 5 2021',
-                time: '4:00 PM',
-                therapist: { name: 'Levi Ackerman' },
+                time: '04:00 PM',
+                therapist: { name: 'Levi Ackerman', avatar: 'https://i.imgur.com/Mh4ISd6.jpg' },
                 patient: { name: 'John Doe' },
                 duration: 60,
                 status: 'completed'
@@ -38,11 +43,38 @@ const data = {
             {
                 id: 3,
                 date: 'May 4 2021',
-                time: '3:00 PM',
-                therapist: { name: 'Mikasa Ackerman' },
+                time: '03:00 PM',
+                therapist: { name: 'Mikasa Ackerman', avatar: 'https://i.imgur.com/tId9zxe.jpg' },
                 patient: { name: 'John Doe' },
                 duration: 30,
                 status: 'completed'
+            },
+            {
+                id: 4,
+                date: 'Jun 15 2021',
+                time: '01:00 PM',
+                therapist: { name: 'Eren Jaeger', avatar: 'https://i.imgur.com/Mh4ISd6.jpg' },
+                patient: { name: 'John Doe' },
+                duration: 30,
+                status: 'approved'
+            },
+            {
+                id: 5,
+                date: 'Jun 20 2021',
+                time: '10:00 AM',
+                therapist: { name: 'Mikasa Ackerman', avatar: 'https://i.imgur.com/tId9zxe.jpg' },
+                patient: { name: 'John Doe' },
+                duration: 60,
+                status: 'approved'
+            },
+            {
+                id: 6,
+                date: 'Jun 13 2021',
+                time: '02:00 PM',
+                therapist: { name: 'Conny Springer', avatar: '' },
+                patient: { name: 'John Doe' },
+                duration: 45,
+                status: 'approved'
             },
         ]
     }
@@ -52,7 +84,9 @@ const Home = () => {
     const classes = useStyles()
 
     const getFavTherapist = (patient) => {
-        const appointmentCounts = patient.appointments.reduce((acc, item) => {
+        const completedAppointments = patient.appointments.filter(a => a.status == 'completed')
+
+        const appointmentCounts = completedAppointments.reduce((acc, item) => {
             let name = item.therapist.name
 
             if (name in acc) {
@@ -87,13 +121,17 @@ const Home = () => {
             }
             return acc
         }, 0)
-        console.log(totalMins)
         return (totalMins / 60).toFixed(2)
+    }
+
+    const getUpcomingData = (patient) => {
+        return patient.appointments.filter(appointment => appointment.status == 'approved')
     }
 
     const favTherapist = getFavTherapist(data.patient)
     const totalSessions = getTotalSessions(data.patient)
     const totalHours = getTotalHours(data.patient)
+    const upcomingData = getUpcomingData(data.patient)
 
     return (
         <div className={classes.root}>
@@ -105,19 +143,20 @@ const Home = () => {
 
                     <Grid container spacing={8} className={classes.paddingTop}>
                         <Grid item lg={4}>
-                            <Paper style={{ minHeight: 150 }}>Total Sessions: {totalSessions}</Paper>
+                            <Paper style={{ minHeight: 150 }}>Total Sessions: {totalSessions ? totalSessions : '0'}</Paper>
                         </Grid>
                         <Grid item lg={4}>
-                            <Paper style={{ minHeight: 150 }}>Total Hours: {totalHours} h</Paper>
+                            <Paper style={{ minHeight: 150 }}>Total Hours: {totalHours ? totalHours : 0} h</Paper>
                         </Grid>
                         <Grid item lg={4}>
-                            <Paper style={{ minHeight: 150 }}>Your Favourite Therapist: {favTherapist.name}</Paper>
+                            <Paper style={{ minHeight: 150 }}>Your Favourite Therapist: {favTherapist?.name ? favTherapist.name : '-'}</Paper>
                         </Grid>
                     </Grid>
 
                     <Grid container className={classes.paddingTop}>
                         <Grid item lg={12}>
-                            <Paper style={{ minHeight: 350 }}>upcoming appointments</Paper>
+                            <Typography variant="h4" className={classes.sectionTitle}>Upcoming appointments</Typography>
+                            <UpcomingAppointments data={upcomingData} />
                         </Grid>
                     </Grid>
                 </Grid>

@@ -11,7 +11,7 @@ export default {
     dark: "#4943FF",
     main: "#605BFF",
     normal: "#7A77FF",
-    action: "#EEEDFF",
+    action: "#E6E5F7",
     light: "#F3F3FB"
   },
   secondary: {
