@@ -88,10 +88,8 @@ const UpcomingAppointments = ({ data }) => {
         const appointmentDate = new Date(date + " " + time)
 
         if (currentDate > appointmentDate) {
-            console.log('available to join the session')
             return true
         } else {
-            console.log('wait for the appointment time')
             return false
         }
     }
