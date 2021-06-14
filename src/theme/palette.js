@@ -25,7 +25,8 @@ export default {
     contrastText: white,
     dark: "#51D084",
     main: colors.green[600],
-    light: colors.green[400]
+    light: colors.green[400],
+    lighten: colors.green[50]
   },
   info: {
     contrastText: white,

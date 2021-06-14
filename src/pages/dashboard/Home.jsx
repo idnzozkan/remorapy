@@ -3,6 +3,11 @@ import React from 'react'
 
 import WelcomeCard from '../../components/WelcomeCard'
 import UpcomingAppointments from '../../components/UpcomingAppointments'
+import StatsCard from '../../components/StatsCard'
+
+import VideoCallIcon from '@material-ui/icons/VideoCall';
+import WatchLaterIcon from '@material-ui/icons/WatchLater';
+import PersonIcon from '@material-ui/icons/Person';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -125,7 +130,24 @@ const Home = () => {
     }
 
     const getUpcomingData = (patient) => {
-        return patient.appointments.filter(appointment => appointment.status == 'approved')
+        const approvedAppointments = patient.appointments.filter(appointment => appointment.status == 'approved')
+
+        approvedAppointments.sort((a, b) => {
+            let dateA = new Date(a.date + ' ' + a.time)
+            let dateB = new Date(b.date + ' ' + b.time)
+
+            if (dateA < dateB) {
+                return -1
+            }
+
+            if (dateA > dateB) {
+                return 1
+            }
+
+            return 0
+        })
+
+        return approvedAppointments
     }
 
     const favTherapist = getFavTherapist(data.patient)
@@ -143,13 +165,13 @@ const Home = () => {
 
                     <Grid container spacing={8} className={classes.paddingTop}>
                         <Grid item lg={4}>
-                            <Paper style={{ minHeight: 150 }}>Total Sessions: {totalSessions ? totalSessions : '0'}</Paper>
+                            <StatsCard color="primary" icon={<VideoCallIcon />} label='Total Sessions' value={totalSessions ? totalSessions : '0'} />
                         </Grid>
                         <Grid item lg={4}>
-                            <Paper style={{ minHeight: 150 }}>Total Hours: {totalHours ? totalHours : 0} h</Paper>
+                            <StatsCard color="secondary" icon={<WatchLaterIcon />} label='Total Hours' value={totalHours ? totalHours : 0} />
                         </Grid>
                         <Grid item lg={4}>
-                            <Paper style={{ minHeight: 150 }}>Your Favourite Therapist: {favTherapist?.name ? favTherapist.name : '-'}</Paper>
+                            <StatsCard color="success" icon={<PersonIcon />} label='Favourite Therapist' value={favTherapist?.name ? favTherapist.name : '-'} />
                         </Grid>
                     </Grid>
 
