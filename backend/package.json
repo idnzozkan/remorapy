@@ -1,0 +1,16 @@
+{
+  "name": "remorapy",
+  "version": "1.0.0",
+  "description": "Remote Psychotherapy Platform",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "remorapy",
+    "remote",
+    "therapy"
+  ],
+  "author": "Deniz Ozkan <ibrahimdenizozkan@gmail.com>",
+  "license": "ISC"
+}
