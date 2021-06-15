@@ -13,7 +13,12 @@ const AppointmentSchema = new mongoose.Schema({
   },
   date: Date,
   time: Date,
-  duration: Number
+  duration: Number,
+  fee: Number,
+  status: {
+    type: String,
+    default: "pending"
+  }
 })
 
 AppointmentSchema.plugin(require("mongoose-autopopulate"))

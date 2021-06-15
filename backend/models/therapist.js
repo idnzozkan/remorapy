@@ -12,6 +12,8 @@ const TherapistSchema = new mongoose.Schema({
     type: String,
     default: "therapist"
   },
+  bio: String,
+  starCount: Number,
   fullDates: [{}],
   appointments: [
     {
