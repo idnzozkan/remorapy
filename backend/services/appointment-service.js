@@ -17,7 +17,7 @@ class AppointmentService extends BaseService {
     patient.appointments.push(appointment)
     therapist.appointments.push(appointment)
 
-    await passenger.save()
+    await patient.save()
     await therapist.save()
 
     return appointment
