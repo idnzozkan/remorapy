@@ -28,7 +28,7 @@ content-type: application/json
     "therapistId": "60c8b826d336202635395976",
     "dateData": "16 June 2021",
     "timeData": "03:00 PM",
-    "duration": 60,
+    "duration": 60
 }
 
 ###
