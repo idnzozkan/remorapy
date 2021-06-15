@@ -1,0 +1,76 @@
+### PATIENTS ###
+GET http://localhost:8080/patients HTTP/1.1
+
+###
+
+GET http://localhost:8080/patients/60c7f6d5fd221b916cb749cc HTTP/1.1
+
+###
+
+POST http://localhost:8080/patients HTTP/1.1
+content-type: application/json
+
+{
+    "name": "John Doe",
+    "age": 60,
+    "country": "United Kingdom",
+    "spokenLangs": ["English"],
+    "avatar": "",
+    "email": "john@doe.com"
+}
+
+###
+
+POST http://localhost:8080/patients/60c7f8392bb13d92d6158aa6/appointments HTTP/1.1
+content-type: application/json
+
+{
+    "therapistId": "60c8b826d336202635395976",
+    "dateData": "16 June 2021",
+    "timeData": "03:00 PM",
+    "duration": 60,
+}
+
+###
+
+DELETE http://localhost:8080/patients/60c7f7cdfd221b916cb749cd HTTP/1.1
+
+
+### THERAPISTS ###
+GET http://localhost:8080/therapists HTTP/1.1
+
+###
+
+GET http://localhost:8080/therapists/60c8b7c54a6dbe2566b60b1f HTTP/1.1
+
+###
+
+POST http://localhost:8080/therapists HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Carol Smith",
+    "age": 32,
+    "country": "United States",
+    "spokenLangs": ["English", "Spanish"],
+    "avatar": "https://i.imgur.com/tId9zxe.jpg",
+    "hourlyRate": 40,
+    "email": "carol@smith.com",
+    "bio": "Hello, I'm Carol. I'm an experienced psychotherapist and I've been helping to old people about their problems for more than 10 years."
+}
+
+###
+
+DELETE http://localhost:8080/therapists/60c8b7c54a6dbe2566b60b1f HTTP/1.1
+
+
+### APPOINTMENTS ###
+GET http://localhost:8080/appointments HTTP/1.1
+
+###
+
+GET http://localhost:8080/appointments/60c8b7c54a6dbe2566b60b1f HTTP/1.1
+
+###
+
+DELETE http://localhost:8080/appointments/60c8bc4f980ae529a22d4834 HTTP/1.1

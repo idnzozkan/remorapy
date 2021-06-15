@@ -1,5 +1,7 @@
 import { Grid, makeStyles, Paper, Typography } from '@material-ui/core'
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { getPatient } from '../../actions/patientAction'
 
 import WelcomeCard from '../../components/WelcomeCard'
 import UpcomingAppointments from '../../components/UpcomingAppointments'
@@ -87,40 +89,51 @@ const data = {
 
 const Home = () => {
     const classes = useStyles()
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(getPatient())
+    }, [dispatch])
+
+    const data2 = useSelector((state) => state)
+    console.log(data2.patient)
 
     const getFavTherapist = (patient) => {
-        const completedAppointments = patient.appointments.filter(a => a.status == 'completed')
+        if (patient.appointments.length) {
 
-        const appointmentCounts = completedAppointments.reduce((acc, item) => {
-            let name = item.therapist.name
+            const completedAppointments = patient.appointments.filter(a => a.status == 'completed')
 
-            if (name in acc) {
-                acc[name]++
-            } else {
-                acc[name] = 1
-            }
+            const appointmentCounts = completedAppointments.reduce((acc, item) => {
+                let name = item.therapist.name
 
-            return acc
-        }, {})
+                if (name in acc) {
+                    acc[name]++
+                } else {
+                    acc[name] = 1
+                }
 
-        let counts = Object.values(appointmentCounts)
-        let max = Math.max.apply(Math, counts)
+                return acc
+            }, {})
 
-        for (let therapistName in appointmentCounts) {
-            if (appointmentCounts[therapistName] === max) {
-                let favTherapist = patient.appointments.find(appointment => appointment.therapist.name == therapistName).therapist
+            let counts = Object.values(appointmentCounts)
+            let max = Math.max.apply(Math, counts)
 
-                return favTherapist
+            for (let therapistName in appointmentCounts) {
+                if (appointmentCounts[therapistName] === max) {
+                    let favTherapist = patient.appointments.find(appointment => appointment.therapist.name == therapistName).therapist
+
+                    return favTherapist
+                }
             }
         }
     }
 
     const getTotalSessions = (patient) => {
-        return patient.appointments.filter(appointment => appointment.status == 'completed').length
+        return patient.appointments?.filter(appointment => appointment.status == 'completed').length
     }
 
     const getTotalHours = (patient) => {
-        let totalMins = patient.appointments.reduce((acc, appointment) => {
+        let totalMins = patient.appointments?.reduce((acc, appointment) => {
             if (appointment.status == 'completed') {
                 acc += appointment.duration
             }
@@ -130,24 +143,26 @@ const Home = () => {
     }
 
     const getUpcomingData = (patient) => {
-        const approvedAppointments = patient.appointments.filter(appointment => appointment.status == 'approved')
+        if (patient.appointments.length) {
+            const approvedAppointments = patient.appointments.filter(appointment => appointment.status == 'approved')
 
-        approvedAppointments.sort((a, b) => {
-            let dateA = new Date(a.date + ' ' + a.time)
-            let dateB = new Date(b.date + ' ' + b.time)
+            approvedAppointments.sort((a, b) => {
+                let dateA = new Date(a.date + ' ' + a.time)
+                let dateB = new Date(b.date + ' ' + b.time)
 
-            if (dateA < dateB) {
-                return -1
-            }
+                if (dateA < dateB) {
+                    return -1
+                }
 
-            if (dateA > dateB) {
-                return 1
-            }
+                if (dateA > dateB) {
+                    return 1
+                }
 
-            return 0
-        })
+                return 0
+            })
 
-        return approvedAppointments
+            return approvedAppointments
+        }
     }
 
     const favTherapist = getFavTherapist(data.patient)
