@@ -46,7 +46,7 @@ Install dependencies
   npm install
 ```
 
-Start the server
+Run locally
 
 ```bash
   npm start
