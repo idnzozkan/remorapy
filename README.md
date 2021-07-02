@@ -1,6 +1,6 @@
 # Remorapy
 
-Remorapy, a secure online counseling platform that brings therapists and clients together. Designed for old-first people who need to get online therapy from the most expert therapists all around the world.
+Remorapy, a secure online counseling platform that brings therapists and clients together. Designed for people who need to get online therapy from the most expert therapists all around the world.
 
 > (It is a non-commercial demo project which still in development.)
 
